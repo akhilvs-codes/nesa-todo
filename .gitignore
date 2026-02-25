@@ -1,0 +1,15 @@
+
+
+backend/node_modules/
+backend/.pnp
+backend/.pnp.*
+backend/.yarn/*
+
+
+backend/.env
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+
+frontend/.gitignore
