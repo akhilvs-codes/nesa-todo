@@ -5,74 +5,75 @@ import { Todo, getTodos, createTodo, deleteTodo, updateTodo } from "@/services/t
 import toast from "react-hot-toast";
 
 export default function Home() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(3);
-  const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [title, setTitle] = useState("")
+  const [desc, setDesc] = useState("")
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [limit] = useState(3)
+  const [loading, setLoading] = useState(true)
 
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editDesc, setEditDesc] = useState("");
+  const [editTitle, setEditTitle] = useState("")
+  const [editDesc, setEditDesc] = useState("")
 
   const fetchTodos = async (p: number) => {
-    setLoading(true);
-    const data = await getTodos(p);
-    setTodos(data.todos);
-    setTotalPages(data.totalPages);
-    setLoading(false);
-  };
+    setLoading(true)
+    const data = await getTodos(p)
+    setTodos(data.todos)
+    setTotalPages(data.totalPages)
+    setLoading(false)
+  }
 
   useEffect(() => {
-    fetchTodos(page);
-  }, [page]);
+    fetchTodos(page)
+  }, [page])
 
 
   const handleCreate = async () => {
 
     if (!title.trim()) {
-      toast.error("please fill title");
-      return;
+      toast.error("please fill title")
+      return
     }
 
     const res = await createTodo(title, desc)
-    const newTodo = res.data.todo;
+    const newTodo = res.data.todo
+
 
     setTodos(prev => {
-      const updated = [newTodo, ...prev];
+      const updated = [newTodo, ...prev]
       if (updated.length > limit) updated.pop()
-      return updated;
-    });
+      return updated
+    })
 
-    setTotalPages(res.data.totalPages);
-    setTitle("");
-    setDesc("");
-    toast.success("Task added");
+    setTotalPages(res.data.totalPages)
+    setTitle("")
+    setDesc("")
+    toast.success("Task added")
 
-  };
+  }
 
 
   const handleDelete = async (id: string) => {
-    await deleteTodo(id);
+    await deleteTodo(id)
     // setTodos(prev => prev.filter(t => t._id !== id))
     fetchTodos(page)
-    toast.success("task deleted");
+    toast.success("task deleted")
 
-  };
+  }
 
   const startEdit = (todo: Todo) => {
-    setEditingId(todo._id);
-    setEditTitle(todo.title);
-    setEditDesc(todo.description || "");
-  };
+    setEditingId(todo._id)
+    setEditTitle(todo.title)
+    setEditDesc(todo.description || "")
+  }
 
   const saveEdit = async (id: string) => {
     const res = await updateTodo(id, {
       title: editTitle,
       description: editDesc,
-    });
+    })
 
     console.log(res.data);
 
@@ -80,10 +81,10 @@ export default function Home() {
       prev.map(t =>
         t._id === id ? { ...t, ...res.data } : t
       )
-    );
+    )
 
-    setEditingId(null);
-  };
+    setEditingId(null)
+  }
 
 
   const handleStatusChange = async (
@@ -96,8 +97,8 @@ export default function Home() {
       prev.map(t =>
         t._id === id ? { ...t, status } : t
       )
-    );
-  };
+    )
+  }
 
 
 

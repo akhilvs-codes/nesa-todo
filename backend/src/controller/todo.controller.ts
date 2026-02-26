@@ -16,6 +16,8 @@ export const createTodo = async (req: Request, res: Response) => {
 
 
     } catch (err) {
+        console.log(err);
+        
         res.status(500).json({ mesage: "internal server error" })
     }
 }
@@ -62,7 +64,7 @@ export const updateTodo = async (req: Request, res: Response) => {
         console.log(todo);
 
 
-        res.status(200).json({ message: "success", data: todo });
+        res.status(200).json({ message: "success", data: todo })
     } catch (err) {
         console.log(err);
 
@@ -76,9 +78,10 @@ export const updateTodo = async (req: Request, res: Response) => {
 export const deleteTodo = async (req: Request, res: Response) => {
     try {
 
-
-        await Todo.findByIdAndDelete(req.params.id);
-        res.json({ message: "Deleted" });
+        const id=req.params.id
+        
+        await Todo.findByIdAndDelete(id)
+        res.json({ message: "Deleted" })
     } catch (err) {
 
         res.status(500).json({ mesage: "internal server error" })
