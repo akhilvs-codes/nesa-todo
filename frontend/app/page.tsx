@@ -11,7 +11,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(3);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
@@ -131,6 +131,11 @@ export default function Home() {
         </div>
 
         <div className="space-y-4">
+
+          {loading && (
+            <p className="text-center text-gray-500 mb-4">Loading...</p>
+          )}
+
           {todos.map(todo => (
             <div key={todo._id} className="bg-gray-600 p-4 rounded">
 
@@ -202,7 +207,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="flex justify-center items-center gap-4 mt-8">
+       {!loading && ( <div className="flex justify-center items-center gap-4 mt-8">
 
           <button
             disabled={page === 1}
@@ -227,6 +232,8 @@ export default function Home() {
           </button>
 
         </div>
+)}
+
       </div>
     </main>
   )
