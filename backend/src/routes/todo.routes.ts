@@ -12,9 +12,9 @@ router.get("/",getTodos)
 
 router.post("/",createTodo)
 
-router.patch("/",updateTodo)
+router.put("/:id",updateTodo)
 
-router.delete("/",deleteTodo)
+router.delete("/:id",deleteTodo)
 
 
 
