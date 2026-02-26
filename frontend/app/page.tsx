@@ -136,7 +136,7 @@ export default function Home() {
             <p className="text-center text-gray-500 mb-4">Loading...</p>
           )}
 
-          {todos.length < 1 && (
+          {todos.length < 1 && !loading &&(
             <div className="text-center py-10 text-gray-400">
               <p className="text-lg font-medium">No todos yet</p>
               <p className="text-sm">Create your first todo above 👆</p>
