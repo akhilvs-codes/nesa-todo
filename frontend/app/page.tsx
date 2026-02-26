@@ -136,6 +136,16 @@ export default function Home() {
             <p className="text-center text-gray-500 mb-4">Loading...</p>
           )}
 
+          {todos.length < 1 && (
+            <div className="text-center py-10 text-gray-400">
+              <p className="text-lg font-medium">No todos yet</p>
+              <p className="text-sm">Create your first todo above 👆</p>
+            </div>
+          )
+
+          }
+
+
           {todos.map(todo => (
             <div key={todo._id} className="bg-gray-600 p-4 rounded">
 
@@ -207,7 +217,7 @@ export default function Home() {
           ))}
         </div>
 
-       {!loading && ( <div className="flex justify-center items-center gap-4 mt-8">
+        {!loading && todos.length>0 && (<div className="flex justify-center items-center gap-4 mt-8 ">
 
           <button
             disabled={page === 1}
@@ -232,7 +242,7 @@ export default function Home() {
           </button>
 
         </div>
-)}
+        )}
 
       </div>
     </main>
